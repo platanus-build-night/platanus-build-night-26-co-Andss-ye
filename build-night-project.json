@@ -1,5 +1,5 @@
 {
-  "project-name": "<FILL THIS>",
-  "project-oneliner": "<FILL THIS>",
-  "project-description": "<FILL THIS>"
+  "project-name": "glyphsphere",
+  "project-oneliner": "Un planeta navegable, hecho de caracteres.",
+  "project-description": "glyphsphere dibuja la Tierra en una grilla de caracteres monoespaciados (ASCII, braille y bloques de cuadrante), con zoom continuo desde órbita alta hasta nivel de calle. No es un conversor de imágenes a ASCII: conoce la geometría (costas, ríos, curvas de nivel) y elige cada carácter porque significa algo."
 }

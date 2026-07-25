@@ -1,0 +1,15 @@
+{
+  "name": "@glyphsphere/data",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./assets/*": "./assets/*"
+  },
+  "scripts": {
+    "build": "tsx scripts/build.ts"
+  },
+  "devDependencies": {
+    "world-atlas": "^2.0.2"
+  }
+}

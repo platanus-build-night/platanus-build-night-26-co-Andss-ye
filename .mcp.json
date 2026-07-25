@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "glyphsphere": {
+      "command": "npx",
+      "args": ["-y", "tsx", "packages/agent/bin/mcp.ts"]
+    }
+  }
+}

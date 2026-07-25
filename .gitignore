@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.cache/
+*.log
+*.tsbuildinfo
+.DS_Store
+fonts/dist/
+fonts/source/
+packages/data/assets/*
+!packages/data/assets/**/manifest.json
+packages/data/.cache/
+/docs/
+/DEPLOY.md
+/PITCH.md

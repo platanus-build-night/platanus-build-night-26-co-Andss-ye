@@ -1,0 +1,30 @@
+{
+  "name": "glyphsphere",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @glyphsphere/playground dev",
+    "build": "pnpm -r --filter \"./packages/**\" run build",
+    "test": "vitest run",
+    "test:visual": "vitest run --project visual",
+    "bench": "pnpm -r --filter \"./packages/**\" run bench",
+    "data:build": "pnpm --filter @glyphsphere/data run build",
+    "font:build": "tsx fonts/build.ts",
+    "typecheck": "tsc -b",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
+    "eslint": "^9.15.0",
+    "subset-font": "^2.5.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.1",
+    "vitest": "^2.1.5"
+  }
+}

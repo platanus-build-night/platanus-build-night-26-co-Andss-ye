@@ -1,0 +1,11 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/core" },
+    { "path": "./packages/bodies" },
+    { "path": "./packages/layers" },
+    { "path": "./packages/agent" },
+    { "path": "./packages/renderer-canvas" },
+    { "path": "./apps/playground" }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@glyphsphere/core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "types": "./src/index.ts",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "bench": "tsx bench/pipeline.bench.ts"
+  },
+  "dependencies": {
+    "d3-geo": "^3.1.1",
+    "d3-geo-projection": "^4.0.0",
+    "versor": "^0.2.0"
+  },
+  "devDependencies": {
+    "@types/d3-geo": "^3.1.0"
+  }
+}

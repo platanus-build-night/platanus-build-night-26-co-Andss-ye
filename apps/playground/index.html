@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>glyphsphere playground</title>
+    <style>
+      /*
+        Two layers, one design.
+
+        The canvas is the planet and it is entirely characters. Everything in this stylesheet
+        governs the layer *over* it: place names and the instrument panel, set in real type.
+        The palette is shared with the grid (docs/AESTHETIC.md), which is what stops the two
+        from looking like a HUD pasted onto a terminal.
+      */
+      :root {
+        --void: #05070a;
+        --chrome: #6e8290;
+        --alpine: #c4b5a0;
+        --snow: #eff4f7;
+        --signal: #00e5d0;
+        --alert: #ff7a3d;
+        --ui: 'Inter', ui-sans-serif, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial,
+          sans-serif;
+      }
+
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: var(--void);
+        color: var(--chrome);
+        font-family: var(--ui);
+        overflow: hidden;
+      }
+
+      #stage {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #glyphsphere {
+        display: block;
+      }
+
+      /* --- layer 2: names ------------------------------------------------------------- */
+      #overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        /* Never intercept the pointer: dragging across a city name drags the planet. */
+        pointer-events: none;
+      }
+
+      .gs-leaders,
+      .gs-names {
+        position: absolute;
+        inset: 0;
+      }
+
+      .gs-leader {
+        stroke-width: 1;
+        opacity: 0.45;
+        /* Dashed, so a leader never reads as a river or a border — those are solid braille. */
+        stroke-dasharray: 1 3;
+      }
+
+      .gs-name {
+        position: absolute;
+        top: 0;
+        left: 0;
+        white-space: nowrap;
+        text-transform: uppercase;
+        /* The map underneath is busy; a tight dark halo keeps names readable over any of it
+           without a box, which would hide the terrain the names are annotating. */
+        text-shadow:
+          0 0 3px var(--void),
+          0 0 6px var(--void),
+          0 1px 2px rgb(5 7 10 / 90%);
+      }
+
+      /* --- layer 2: instruments ------------------------------------------------------- */
+      #panel {
+        position: absolute;
+        top: 18px;
+        left: 18px;
+        width: 268px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        pointer-events: none;
+        /* Sits on the void, not on a card: a panel with a background would punch a hole in
+           the planet. Legibility comes from the text shadow instead. */
+        text-shadow: 0 0 4px var(--void);
+      }
+
+      .gs-section h2 {
+        margin: 0 0 6px;
+        font-size: 9.5px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--chrome);
+        opacity: 0.65;
+        border-bottom: 1px solid rgb(110 130 144 / 22%);
+        padding-bottom: 5px;
+      }
+
+      .gs-row,
+      .gs-meter {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        padding: 1.5px 0;
+      }
+
+      .gs-meter {
+        align-items: center;
+      }
+
+      .gs-key {
+        flex: 0 0 88px;
+        font-size: 9.5px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--chrome);
+        opacity: 0.7;
+      }
+
+      .gs-value {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--snow);
+        /* Tabular figures: a readout that shifts sideways as digits change is unreadable
+           while the camera moves, which is exactly when you are reading it. */
+        font-variant-numeric: tabular-nums;
+        letter-spacing: 0.02em;
+      }
+
+      .gs-value.gs-warn {
+        color: var(--alert);
+      }
+
+      .gs-pct {
+        flex: 0 0 42px;
+        text-align: right;
+        font-size: 11px;
+        color: var(--alpine);
+      }
+
+      .gs-track {
+        flex: 1;
+        height: 2px;
+        background: rgb(110 130 144 / 20%);
+        overflow: hidden;
+      }
+
+      .gs-fill {
+        display: block;
+        height: 100%;
+        width: 0;
+        background: var(--signal);
+        transition: width 90ms linear;
+      }
+
+      /* --- layer 2: key hints --------------------------------------------------------- */
+      #hints {
+        position: absolute;
+        bottom: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px 14px;
+        max-width: min(1100px, 92vw);
+        pointer-events: none;
+        text-shadow: 0 0 4px var(--void);
+      }
+
+      .gs-hint {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--chrome);
+        opacity: 0.8;
+      }
+
+      .gs-hint kbd {
+        font-family: var(--ui);
+        font-size: 9.5px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        color: var(--alpine);
+        border: 1px solid rgb(196 181 160 / 35%);
+        border-radius: 3px;
+        padding: 1.5px 5px;
+        line-height: 1.2;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stage">
+      <canvas id="glyphsphere"></canvas>
+      <div id="overlay"></div>
+      <div id="panel"></div>
+      <div id="hints"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "@glyphsphere/playground",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@glyphsphere/bodies": "workspace:*",
+    "@glyphsphere/core": "workspace:*",
+    "@glyphsphere/data": "workspace:*",
+    "@glyphsphere/layers": "workspace:*",
+    "@glyphsphere/renderer-canvas": "workspace:*",
+    "topojson-client": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/geojson": "^7946.0.16",
+    "@types/topojson-client": "^3.1.5",
+    "@types/topojson-specification": "^1.0.5"
+  }
+}
